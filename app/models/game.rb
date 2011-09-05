@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+
   def finished?
     if status == 'Won!'
       true

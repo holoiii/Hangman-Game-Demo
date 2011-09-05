@@ -16,11 +16,15 @@ class GamesController < ApplicationController
     cur_params = params[:game]
     @game = Game.find(params[:id])
     unless @game.guesses.include? cur_params[:guesses]
-      @game.update_attributes(:guesses => @game.guesses << cur_params[:guesses])
-      puts '---------------------'
-      puts @game.guesses
-      puts '---------------------'
+      temp_guess = @game.guesses.to_s + cur_params[:guesses].to_s
+      @game.update_attributes(:guesses => temp_guess)
     end
+
+    win = @game.word.split(//).collect do |c|
+      c if @game.guesses.include? c
+    end
+
+    @game.update_attributes(:status => 'Won!') if win.join.match @game.word
 
     redirect_to(@game)
   end
