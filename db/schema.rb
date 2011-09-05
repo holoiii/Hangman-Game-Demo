@@ -10,6 +10,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20110905063843) do
+
+  create_table "games", :force => true do |t|
+    t.string   "word"
+    t.string   "guesses"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "status"
+  end
+
+  create_table "words", :force => true do |t|
+    t.string   "word"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

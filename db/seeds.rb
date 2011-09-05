@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+Word.create(:word => 'Monkey')
+Word.create(:word => 'Ape')
+Word.create(:word => 'Horse')
+Word.create(:word => 'Zebra')
