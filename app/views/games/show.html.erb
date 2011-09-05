@@ -1,0 +1,21 @@
+<h1>Game Number: <%= @game.id %></h1>
+
+<table>
+  <tr>
+    <td><%= @current_word.split(//).join(" ") %> </td>
+  </tr>
+  <tr>
+    <td><%= "Guesses: #{@game.guesses}" %></td>
+  </tr>
+  <tr>
+    <td>
+      <%= form_for @game, :url => {:action => "update"} do |f| %>
+          <%= f.label "New guess:" %>
+          <%= f.text_field :guesses %>
+          <%= f.submit "Submit Guess" %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<%= link_to 'Back', games_path %>

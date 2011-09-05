@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  word: MyString
+  guesses: MyString
+
+two:
+  word: MyString
+  guesses: MyString

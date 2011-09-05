@@ -1,0 +1,24 @@
+<h1>Hangman!</h1>
+
+<table>
+  <tr>
+    <th>Game Number</th>
+    <th>Player Name</th>
+    <th>Status</th>
+  </tr>
+
+<% @games.each do |game| %>
+  <tr>
+    <td><%= game.id %></td>
+    <td><%= game.name %></td>
+    <td><%= game.status %></td>
+    <% unless game.finished? %>
+      <td><%= link_to 'Play!', game %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Game', new_game_path %>
