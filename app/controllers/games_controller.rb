@@ -13,18 +13,22 @@ class GamesController < ApplicationController
   end
 
   def update
-    cur_params = params[:game]
     @game = Game.find(params[:id])
-    unless @game.guesses.include? cur_params[:guesses]
-      temp_guess = @game.guesses.to_s + cur_params[:guesses].to_s
-      @game.update_attributes(:guesses => temp_guess)
-    end
+    unless params[:game][:guesses].length > 1
+      cur_params = params[:game]
+      unless @game.guesses.include? cur_params[:guesses]
+        temp_guess = @game.guesses.to_s + cur_params[:guesses].to_s.upcase
+        @game.update_attributes(:guesses => temp_guess)
+      end
 
-    win = @game.word.split(//).collect do |c|
-      c if @game.guesses.include? c
-    end
+      win = @game.word.split(//).collect do |c|
+        c if @game.guesses.include? c
+      end
 
-    @game.update_attributes(:status => 'Won!') if win.join.match @game.word
+      @game.update_attributes(:status => 'Won!') if win.join.match @game.word
+    else
+      flash[:notice] = 'Only 1 guess at a time!'
+    end
 
     redirect_to(@game)
   end
@@ -34,16 +38,8 @@ class GamesController < ApplicationController
     @game.word = Word.random_word
     @game.status = "In Progress"
     @game.guesses = ""
-
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to(@game, :notice => 'Game was successfully created.') }
-        format.xml { render :xml => @game, :status => :created, :location => @game }
-      else
-        format.html { render :action => "new" }
-        format.xml { render :xml => @game.errors, :status => :unprocessable_entity }
-      end
-    end
+    @game.save
+    redirect_to @game
   end
 
 end

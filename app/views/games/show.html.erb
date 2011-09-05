@@ -1,5 +1,5 @@
 <h1>Game Number: <%= @game.id %></h1>
-
+<%= flash[:notice] %>
 <table>
   <tr>
     <td><%= @current_word.split(//).join(" ") %> </td>
